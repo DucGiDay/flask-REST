@@ -205,26 +205,6 @@ def createCauHoi():
     except Exception as e:
         return f"An Error Occurred: {e}"
 
-# @app.route('/api/cau-hoi', methods=['GET'])
-# @cross_origin(origin='*')
-# def readCauHoi():
-#     try:
-#         # Check if ID was passed to URL query
-#         todo_id = request.args.get('id')
-#         if todo_id:
-#             todo = cauHoi_ref.document(todo_id).get()
-#             res = todo.to_dict()
-#             res["id"] = todo.id
-#             return jsonify(todo.to_dict()), 200
-#         else:
-#             all_todos = []
-#             for doc in cauHoi_ref.stream():
-#                 res = doc.to_dict()
-#                 res["id"] = doc.id
-#                 all_todos.append(res)
-#             return jsonify(all_todos), 200
-#     except Exception as e:
-#         return f"An Error Occurred: {e}"
 
 @app.route('/api/cau-hoi', methods=['PUT'])
 @cross_origin(origin='*')
@@ -318,6 +298,28 @@ def readCauHoiKep():
             return jsonify(all_todos), 200
     except Exception as e:
         return f"An Error Occurred: {e}"
+
+@app.route('/api/cau-hoi', methods=['GET'])
+@cross_origin(origin='*')
+def readCauHoi():
+    try:
+        # Check if ID was passed to URL query
+        todo_id = request.args.get('id')
+        if todo_id:
+            todo = cauHoi_ref.document(todo_id).get()
+            res = todo.to_dict()
+            res["id"] = todo.id
+            return jsonify(todo.to_dict()), 200
+        else:
+            all_todos = []
+            for doc in cauHoi_ref.stream():
+                res = doc.to_dict()
+                res["id"] = doc.id
+                all_todos.append(res)
+            return jsonify(all_todos), 200
+    except Exception as e:
+        return f"An Error Occurred: {e}"
+
 
 @app.route('/api/cau-hoi', methods=['DELETE'])
 @cross_origin(origin='*')
